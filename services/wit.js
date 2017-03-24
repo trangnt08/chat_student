@@ -72,9 +72,6 @@ var actions = {
 
 		cb(context)
 		delete context.point
-		delete context.loc
-		delete context.subject
-		delete context.number
 	},
 
 	error(sessionId, context, error) {
@@ -83,19 +80,6 @@ var actions = {
 
 	// list of functions Wit.ai can execute
 	['getPoint'](sessionId, context, cb) {
-
-		// Here we can place an API call to a weather service
-		// if (context.loc) {
-		// 	getWeather(context.loc)
-		// 		.then(function (forecast) {
-		// 			context.forecast = forecast || 'sunny'
-		// 		})
-		// 		.catch(function (err) {
-		// 			console.log(err)
-		// 		})
-		// }else{
-		// 	context.forecast = 'Sunny'
-		// }
 
 		context.point = Math.random(10)
 
