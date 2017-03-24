@@ -64,16 +64,13 @@ var actions = {
 		}
 		else if (subject==null || '') {
 			context.missingSubject = subject
-			// delete context.missingSubject
-			// var subject = firstEntityValue(entities,'subject')
-			// context.subject = subject
 		}
 		
 		cb(context)
-		delete context.point
-		delete context.loc
-		delete context.subject
-		delete context.number
+		// delete context.point
+		// delete context.loc
+		// delete context.subject
+		// delete context.number
 		
 	},
 
