@@ -51,15 +51,15 @@ var actions = {
 		if (loc) {
 			context.loc = loc
 		}
-		var subject = firstEntityValue(entities,'subject')
-		if (subject==null || '') {
-			context.missingSubject = subject
+		var missingsubject = firstEntityValue(entities,'subject')
+		if (missingsubject==null || '') {
+			context.missingSubject = missingsubject
 			// delete context.missingSubject
 			// var subject = firstEntityValue(entities,'subject')
 			// context.subject = subject
 		}
 		else{
-			context.subject = subject
+			context.subject = missingsubject
 		}
 
 		// var num = firstEntityValue(entities,'number')
