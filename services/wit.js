@@ -54,9 +54,9 @@ var actions = {
 		var subject = firstEntityValue(entities,'subject')
 		if (subject==null || '') {
 			context.missingSubject = subject
-			delete context.missingSubject
-			var subject = firstEntityValue(entities,'subject')
-			context.subject = subject
+			// delete context.missingSubject
+			// var subject = firstEntityValue(entities,'subject')
+			// context.subject = subject
 		}
 		else{
 			context.subject = subject
@@ -67,11 +67,11 @@ var actions = {
 		// 	context.missingNum = num
 		// }
 		cb(context)
-		delete context.point
-		delete context.number
-		delete context.subject
-		delete context.missingSubject
-		delete context.missingNum
+		// delete context.point
+		// delete context.number
+		// delete context.subject
+		// delete context.missingSubject
+		// delete context.missingNum
 	},
 
 	error(sessionId, context, error) {
