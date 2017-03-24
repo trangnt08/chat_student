@@ -67,6 +67,10 @@ var actions = {
 			context.missingNum = num
 		}
 		cb(context)
+		delete context.point
+		delete context.number
+		delete context.subject
+		delete context.missingSubject
 	},
 
 	error(sessionId, context, error) {
