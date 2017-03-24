@@ -51,27 +51,17 @@ var actions = {
 		if (loc) {
 			context.loc = loc
 		}
-		var missingsubject = firstEntityValue(entities,'subject')
-		if (missingsubject==null || '') {
-			context.missingSubject = missingsubject
+		var subject = firstEntityValue(entities,'subject')
+		if (subject==null || '') {
+			context.missingSubject = subject
 			// delete context.missingSubject
 			// var subject = firstEntityValue(entities,'subject')
 			// context.subject = subject
 		}
-		else{
-			context.subject = missingsubject
-		}
+		
 
-		// var num = firstEntityValue(entities,'number')
-		// if(num==null || ''){
-		// 	context.missingNum = num
-		// }
 		cb(context)
-		// delete context.point
-		// delete context.number
-		// delete context.subject
-		// delete context.missingSubject
-		// delete context.missingNum
+		
 	},
 
 	error(sessionId, context, error) {
