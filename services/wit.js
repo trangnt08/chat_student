@@ -54,8 +54,11 @@ var actions = {
 		var missingSubject = firstEntityValue(entities,'subject')
 		if (missingSubject==null || '') {
 			context.missingSubject = missingSubject
+			var subject = firstEntityValue(entities,'subject')
+			missingSubject = subject
+			context.missingSubject=subject
 		};
-		
+
 		var subject = firstEntityValue(entities,'subject')
 			if(subject){
 				context.subject = subject
