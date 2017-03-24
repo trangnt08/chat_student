@@ -59,15 +59,16 @@ var actions = {
 
 		
 		if (subject && number) {
+			delete context.missingSubject
 			context.subject=subject
 			context.number=number
 		}
+		else{
+			context.missingSubject = true;
+			delete context.point
+		}
 
 		cb(context)
-		delete context.point
-		delete context.loc
-		delete context.subject
-		delete context.number
 		
 	},
 
