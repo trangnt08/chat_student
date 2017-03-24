@@ -56,18 +56,20 @@ var actions = {
 		}
 		var subject = firstEntityValue(entities,'subject')
 		var number = firstEntityValue(entities,'number')
+		console.log(subject)
+		console.log(number)
 		
 		if (subject && number) {
 			context.subject=subject
 			context.number=number
 		}
-		else if (subject==null || '') {
+		else if ((subject==null || '') && (number!=null)) {
 			context.missingSubject = subject
 			// delete context.missingSubject
 			// var subject = firstEntityValue(entities,'subject')
 			// context.subject = subject
 		}
-		else if (number == null){
+		else if (subject!='' && number == null){
 			context.number = number
 		}
 
