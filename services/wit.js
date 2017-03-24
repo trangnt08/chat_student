@@ -72,6 +72,9 @@ var actions = {
 
 		cb(context)
 		delete context.point
+		delete context.loc
+		delete context.subject
+		delete context.number
 	},
 
 	error(sessionId, context, error) {
