@@ -63,10 +63,10 @@ var actions = {
 			context.number=number
 		}
 		else if (subject==null || '') {
-			// context.missingSubject = subject
-			delete context.missingSubject
-			var subject = firstEntityValue(entities,'subject')
-			context.subject = subject
+			context.missingSubject = subject
+			// delete context.missingSubject
+			// var subject = firstEntityValue(entities,'subject')
+			// context.subject = subject
 		}
 		
 		cb(context)
