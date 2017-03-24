@@ -44,13 +44,18 @@ var actions = {
 
 	merge(sessionId, context, entities, message, cb) {
 		// Reset the weather story
-		delete context.forecast
+		delete context.name
+		var name = firstEntityValue(entities,'name')
+		if (name) {
+			context.name = name
+		};
 
 		// Retrive the location entity and store it in the context field
 		var missingSubject = firstEntityValue(entities, 'subject')
 		if (missingSubject) {
 			context.missingSubject = missingSubject
 		}
+		
 
 		// // Reset the cutepics story
 		// delete context.pics
