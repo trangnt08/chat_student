@@ -54,6 +54,10 @@ var actions = {
 		var missingSubject = firstEntityValue(entities,'subject')
 		if (missingSubject==null || '') {
 			context.missingSubject = missingSubject
+			var subject = firstEntityValue(entities,'subject')
+			if(subject){
+				context.subject = subject
+			}
 		};
 
 		var num = firstEntityValue(entities,'number')
@@ -69,10 +73,7 @@ var actions = {
 
 	// list of functions Wit.ai can execute
 	['getPoint'](sessionId, context, cb) {
-		subject = firstEntityValue(entities,'subject')
-		if(subject){
-			context.subject = subject
-		}
+
 		// Here we can place an API call to a weather service
 		// if (context.loc) {
 		// 	getWeather(context.loc)
