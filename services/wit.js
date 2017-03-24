@@ -62,10 +62,10 @@ var actions = {
 			context.subject = subject
 		}
 
-		var num = firstEntityValue(entities,'number')
-		if(num==null || ''){
-			context.missingNum = num
-		}
+		// var num = firstEntityValue(entities,'number')
+		// if(num==null || ''){
+		// 	context.missingNum = num
+		// }
 		cb(context)
 		delete context.point
 		delete context.number
