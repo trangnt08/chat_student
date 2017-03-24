@@ -65,11 +65,12 @@ var actions = {
 		else if(subject==null || ''){
 			context.missingSubject = true
 			subject = firstEntityValue(entities,'subject')
-			if (subject==null ||'') {
-				console.log("aaaaaaaaaaaa")
-			}else console.log("bbbbbbbb")
-			context.number = number
-			context.subject = subject
+			if (subject) {
+				delete context.missingSubject
+				context.number = number
+				context.subject = subject
+			};
+			
 		}
 
 		cb(context)
