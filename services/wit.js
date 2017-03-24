@@ -44,7 +44,8 @@ var actions = {
 
 	merge(sessionId, context, entities, message, cb) {
 		// Reset the weather story
-		delete context.name
+		delete context.point
+
 		var name = firstEntityValue(entities,'name')
 		if (name) {
 			context.name = name
