@@ -63,7 +63,7 @@ var actions = {
 
 		var num = firstEntityValue(entities,'number')
 		if(num==null || ''){
-			context.missingNum = missingNum
+			context.missingNum = num
 		}
 		cb(context)
 	},
