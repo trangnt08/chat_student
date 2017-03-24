@@ -62,7 +62,6 @@ var actions = {
 			delete context.missingSubject
 			context.subject=subject
 			context.number=number
-			delete context.point
 		}
 		else{
 			context.missingSubject = true;
@@ -70,7 +69,10 @@ var actions = {
 		}
 
 		cb(context)
-		
+		delete context.point
+		delete context.loc
+		delete context.subject
+		delete context.number
 	},
 
 	error(sessionId, context, error) {
