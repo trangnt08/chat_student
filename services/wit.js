@@ -65,6 +65,7 @@ var actions = {
 		}
 		else if(subject==null || ''){
 			context.missingSubject = true
+			delete context.missingSubject
 			context.subject = firstEntityValue(entities,'subject')
 			context.number = number
 		}
