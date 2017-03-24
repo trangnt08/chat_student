@@ -62,6 +62,7 @@ var actions = {
 			delete context.missingSubject
 			context.subject=subject
 			context.number=number
+			delete context.point
 		}
 		else{
 			context.missingSubject = true;
