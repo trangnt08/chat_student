@@ -62,13 +62,7 @@ var actions = {
 			context.subject=subject
 			context.number=number
 		}
-		else if (subject==null || '') {
-			context.missingSubject = subject
-			delete context.missingSubject
-			subject = firstEntityValue(entities,'subject')
-			context.subject = subject
-		}
-		
+
 		cb(context)
 		delete context.point
 		delete context.loc
