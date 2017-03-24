@@ -63,7 +63,7 @@ var actions = {
 			context.number=number
 		}
 		else{
-			context.missingSubject = missingSubject;
+			context.missingSubject = true
 			context.subject = firstEntityValue(entities,'subject')
 			context.number = number
 		}
@@ -73,7 +73,6 @@ var actions = {
 		delete context.loc
 		delete context.subject
 		delete context.number
-		delete missingSubject
 	},
 
 	error(sessionId, context, error) {
