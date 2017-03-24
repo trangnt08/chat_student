@@ -67,7 +67,6 @@ var actions = {
 			context.missingSubject = true
 			context.subject = firstEntityValue(entities,'subject')
 			context.number = number
-			delete context.missingSubject
 		}
 
 		cb(context)
