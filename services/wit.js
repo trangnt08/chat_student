@@ -57,7 +57,6 @@ var actions = {
 		var subject = firstEntityValue(entities,'subject')
 		var number = firstEntityValue(entities,'number')
 
-		
 		if (subject && number) {
 			delete context.missingSubject
 			context.subject=subject
@@ -65,8 +64,9 @@ var actions = {
 		}
 		else if(subject==null || ''){
 			context.missingSubject = true
-			context.subject = firstEntityValue(entities,'subject')
+			subject = firstEntityValue(entities,'subject')
 			context.number = number
+			context.subject = subject
 		}
 
 		cb(context)
