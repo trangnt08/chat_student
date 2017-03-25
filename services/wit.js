@@ -86,11 +86,11 @@ var actions = {
 
 	// list of functions Wit.ai can execute
 	['getPoint'](sessionId, context, cb) {
-		min = Math.ceil(1);
-  		max = Math.floor(10);
+		// min = Math.ceil(1);
+  // 		max = Math.floor(10);
+  		context.point = Math.random() *10
   
-
-		context.point = Math.floor(Math.random() * (max - min)) + min;
+		// context.point = Math.floor(Math.random() * (max - min)) + min;
 
 		cb(context)
 	},
