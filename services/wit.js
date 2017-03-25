@@ -64,11 +64,11 @@ var actions = {
 		}
 		else if(subject==null || ''){
 			context.missingSubject = true
-			subject = firstEntityValue(entities,'subject')
+			var subject2 = firstEntityValue(entities,'subject')
 			// if (subject) {
 				delete context.missingSubject
 				context.number = number
-				context.subject = subject
+				context.subject = subject2
 			// };
 			
 		}
@@ -86,8 +86,11 @@ var actions = {
 
 	// list of functions Wit.ai can execute
 	['getPoint'](sessionId, context, cb) {
+		min = Math.ceil(1);
+  		max = Math.floor(10);
+  
 
-		context.point = Math.random(10)
+		context.point = Math.floor(Math.random() * (max - min)) + min;
 
 		cb(context)
 	},
