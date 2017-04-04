@@ -22,7 +22,8 @@ var firstEntityValue = function (entities, entity) {
 var actions = {
 	say (sessionId, context, message, cb) {
 		// Bot testing mode, run cb() and return
-		if (require.main === module) {
+		//noinspection JSAnnotator
+        if (require.main === module) {
 			cb()
 			return
 		}
