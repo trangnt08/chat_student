@@ -11,9 +11,9 @@ var Bot = require('./bot')
 var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var assert = require('assert');
-
-var url = 'mongodb://localhost/studentdb';
-
+//
+// var url = 'mongodb://localhost/studentdb';
+//
 // mongo.connect(url, function(err, db) {
 //     if (err) {
 //         console.log("ER1");
