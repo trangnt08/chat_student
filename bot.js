@@ -34,9 +34,20 @@ var findOrCreateSession = function (fbid) {
 var read = function (sender, message, reply) {
 	if (message === 'hello') {
 		// Let's reply back hello
-		message = 'Hello yourself! I am a chat bot."'
+		console.log(message)
+		message = 'Hello yourself! I am a chat bot.'
 		reply(sender, message)
-	} else {
+	}
+	// else if (message == 'xinchao' || 'Chào bạn' || 'xin chào'){
+	// 	message = 'Chào bạn. Bạn muốn xem điểm môn nào?'
+	// 	reply(sender,message)
+	// } 
+	// else if(message == 'goodbye' || 'byebye' || 'bye bye' || 'bye'){
+	// 	message = 'goodbye! See you again.'
+	// 	reply(sender,message)
+	// }
+	
+	else {
 		// Let's find the user
 		var sessionId = findOrCreateSession(sender)
 		// Let's forward the message to the Wit.ai bot engine
