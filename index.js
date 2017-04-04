@@ -8,31 +8,14 @@ var Config = require('./config')
 var FB = require('./connectors/facebook')
 var Bot = require('./bot')
 
-var router = express.Router();
-var mongo = require('mongodb').MongoClient;
-var assert = require('assert');
-//
-// var url = 'mongodb://localhost/studentdb';
-//
-// mongo.connect(url, function(err, db) {
-//     if (err) {
-//         console.log("ER1");
-//     };
-//     if(db){
-//         console.log("OK1")
-//     }
-//     // assert.equal(null, err);
-//     db.collection('point',function (err, collection){
-//         collection.find({"mssv":20121234},{"math":1, _id:0}).toArray(function (err, items){
-//             if (err) throw err;
-//             else{
-//                 console.log(items);
-//                 console.log(items[0].math);
-//                 var point=items[0].math;
-//             }
-//         });
-//     });
-// });
+var mongoose = require('mongoose')
+
+// var router = express.Router();
+var mongo = require('mongodb')
+// var objectId = require('mongodb').ObjectID;
+var assert = require('assert')
+
+var url = 'mongodb://localhost:27017/studentdb';
 
 // LETS MAKE A SERVER!
 var app = express()
@@ -40,7 +23,19 @@ app.set('port', (process.env.PORT) || 5000)
 // SPIN UP SERVER
 app.listen(app.get('port'), function () {
   console.log('Running on port', app.get('port'))
-  
+    var resultArray = [];
+    mongo.connect(url, function(err, db) {
+        assert.equal(null, err);
+        var cursor = db.collection('point').find();
+        cursor.forEach(function(doc, err) {
+            assert.equal(null, err);
+            resultArray.push(doc);
+        }, function() {
+            db.close();
+            // res.send({items: resultArray});
+        });
+    });
+    console.log({items: resultArray})
 })
 // PARSE THE BODY
 app.use(bodyParser.json())
@@ -48,7 +43,19 @@ app.use(bodyParser.json())
 
 // index page
 app.get('/', function (req, res) {
-  res.send('hello world i am a chat bot')
+  var resultArray = [];
+  mongo.connect(url, function(err, db) {
+    assert.equal(null, err);
+    var cursor = db.collection('point').find();
+    cursor.forEach(function(doc, err) {
+      assert.equal(null, err);
+      resultArray.push(doc);
+    }, function() {
+      db.close();
+      res.send({items: resultArray});
+    });
+  });
+  // res.send('hello world i am a chat bot')
 })
 
 // for facebook to verify
@@ -56,8 +63,20 @@ app.get('/webhooks', function (req, res) {
   if (req.query['hub.verify_token'] === Config.FB_VERIFY_TOKEN) {
     res.send(req.query['hub.challenge'])
   }
-  res.send('Error, wrong token')
-
+  res.send('Error, wrong tok')
+  // res.send('hello')
+  var resultArray = [];
+  mongo.connect(url, function(err, db) {
+    assert.equal(null, err);
+    var cursor = db.collection('user-data').find();
+    cursor.forEach(function(doc, err) {
+      assert.equal(null, err);
+      resultArray.push(doc);
+    }, function() {
+      db.close();
+      res.send({items: resultArray});
+    });
+  });
 })
 
 // to send messages to facebook

@@ -4,15 +4,8 @@ var Config = require('../config')
 var FB = require('../connectors/facebook')
 var Wit = require('node-wit').Wit
 var request = require('request')
-var express = require('express')
 
-var router = express.Router();
-var mongo = require('mongodb').MongoClient;
-var assert = require('assert');
 
-var url = 'mongodb://localhost/studentdb';
-
-var point;
 var firstEntityValue = function (entities, entity) {
 	var val = entities && entities[entity] &&
 		Array.isArray(entities[entity]) &&
@@ -63,24 +56,20 @@ var actions = {
 		}
 		var subject = firstEntityValue(entities,'subject')
 		var number = firstEntityValue(entities,'number')
-		var s1;
 
 		if (subject && number) {
 			// delete context.missingSubject
 			context.subject=subject
 			context.number=number
-			console.log("number")
-			console.log(context.number)
+		}
+		
+		else if(number){
+			context.number = number	
 		}
 
-		if (subject){
+		else if (subject){
 			context.subject=subject
 		}
-		
-		
-		// else if(number){
-		// 	context.number = number	
-		// }
 		
 		cb(context)
 	},
@@ -91,36 +80,24 @@ var actions = {
 
 	// list of functions Wit.ai can execute
 	['getPoint'](sessionId, context, cb) {
-		var s1="mat";
-		var number = context.number;
-		if (context.subject=="Toán" || "toán" || "Math" || "math") {
-			s1="math";
-		}
-		else if (context.subject=="Hóa" || "hóa" || "chemistry" || "Chemistry") {
-			s1="chemistry";
-		}
-
-		console.log("subject");
-		console.log(context.subject);
-		console.log(s1);
-		// console.log(context.number);
-
-		context.point=Math.random()*10;
+  		context.point = Math.random() *10
 		cb(context)
 		delete context.subject
 		delete context.number
 	},
 
+	['fetch-pics'](sessionId, context, cb) {
+		var wantedPics = allPics[context.cat || 'default']
+		context.pics = wantedPics[Math.floor(Math.random() * wantedPics.length)]
+
+		cb(context)
+	},
 }
 
 // SETUP THE WIT.AI SERVICE
 var getWit = function () {
 	console.log('GRABBING WIT')
 	return new Wit(Config.WIT_TOKEN, actions)
-}
-
-var checkURL = function (url) {
-    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }
 
 module.exports = {
@@ -131,5 +108,52 @@ module.exports = {
 if (require.main === module) {
 	console.log('Bot testing mode!')
 	var client = getWit()
-	// client.interactive()
+	client.interactive()
+}
+
+// GET WEATHER FROM API
+var getWeather = function (location) {
+	return new Promise(function (resolve, reject) {
+		var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22'+ location +'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
+		request(url, function (error, response, body) {
+		    if (!error && response.statusCode == 200) {
+		    	var jsonData = JSON.parse(body)
+		    	var forecast = jsonData.query.results.channel.item.forecast[0].text
+		      console.log('WEATHER API SAYS....', jsonData.query.results.channel.item.forecast[0].text)
+		      return forecast
+		    }
+			})
+	})
+}
+
+// CHECK IF URL IS AN IMAGE FILE
+var checkURL = function (url) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+}
+
+// LIST OF ALL PICS
+var allPics = {
+  corgis: [
+    'http://i.imgur.com/uYyICl0.jpeg',
+    'http://i.imgur.com/useIJl6.jpeg',
+    'http://i.imgur.com/LD242xr.jpeg',
+    'http://i.imgur.com/Q7vn2vS.jpeg',
+    'http://i.imgur.com/ZTmF9jm.jpeg',
+    'http://i.imgur.com/jJlWH6x.jpeg',
+		'http://i.imgur.com/ZYUakqg.jpeg',
+		'http://i.imgur.com/RxoU9o9.jpeg',
+  ],
+  racoons: [
+    'http://i.imgur.com/zCC3npm.jpeg',
+    'http://i.imgur.com/OvxavBY.jpeg',
+    'http://i.imgur.com/Z6oAGRu.jpeg',
+		'http://i.imgur.com/uAlg8Hl.jpeg',
+		'http://i.imgur.com/q0O0xYm.jpeg',
+		'http://i.imgur.com/BrhxR5a.jpeg',
+		'http://i.imgur.com/05hlAWU.jpeg',
+		'http://i.imgur.com/HAeMnSq.jpeg',
+  ],
+  default: [
+    'http://blog.uprinting.com/wp-content/uploads/2011/09/Cute-Baby-Pictures-29.jpg',
+  ],
 };
